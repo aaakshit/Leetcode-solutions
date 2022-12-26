@@ -1,10 +1,16 @@
 class Solution {
 public:
     int search(vector<int>& nums, int target) {
-        int t=lower_bound(nums.begin(),nums.end(),target)-nums.begin();
-        if(t<=nums.size()-1&&nums[t]==target)
-            return t;
-        else
-            return -1;
+        int l=0,h=nums.size()-1;
+        while(l<=h){
+            int mid=(l+h)/2;
+            if(nums[mid]==target)
+                return mid;
+            else if(nums[mid]>target)
+                h=mid-1;
+            else
+                l=mid+1;
+        }
+        return -1;
     }
 };

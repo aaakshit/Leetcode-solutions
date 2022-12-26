@@ -1,18 +1,19 @@
 class Solution {
 public:
-    int real;
-    void dfs(vector<vector<int>>& image, int sr, int sc, int color){
-        if(sr<0 || sr>=image.size() ||sc<0 ||sc>image[0].size() || image[sr][sc]!=real||image[sr][sc]==color)
+    int oldcolor;
+    void solve(vector<vector<int>>& image, int i, int j, int color){
+        if(i<0 || i>=image.size()||j<0 || j>=image[0].size()||image[i][j]!=oldcolor || image[i][j]==color)
             return;
-        image[sr][sc]=color;
-        dfs(image,sr,sc+1,color);
-        dfs(image,sr+1,sc,color);
-        dfs(image,sr-1,sc,color);
-        dfs(image,sr,sc-1,color);
+        image[i][j]=color;
+         solve(image,i+1,j,color);
+         solve(image,i-1,j,color);
+         solve(image,i,j+1,color);
+         solve(image,i,j-1,color);
+        
     }
     vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int color) {
-        real=image[sr][sc];
-        dfs(image,sr,sc,color);
+        oldcolor=image[sr][sc];
+        solve(image,sr,sc,color);
         return image;
     }
 };

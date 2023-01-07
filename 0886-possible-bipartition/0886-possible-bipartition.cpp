@@ -9,6 +9,8 @@ public:
             adj[dislikes[i][0]].push_back(dislikes[i][1]);
             adj[dislikes[i][1]].push_back(dislikes[i][0]);
         }
+        // for(auto x:adj)
+        //     cout<<x<<endl;
         for(int i=1;i<=n;i++){
             queue<int>q;
             if(color[i]==0)

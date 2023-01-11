@@ -13,42 +13,44 @@ class Solution
         if(!binary_search(v.begin(),v.end(),x))
         return {-1,-1};
         
-        int left=0,right=v.size()-1;
-        int mid,ans;
-        while(left<=right)
-        {
-            mid=left+(right-left)/2;
+        // int left=0,right=v.size()-1;
+        // int mid,ans;
+        // while(left<=right)
+        // {
+        //     mid=left+(right-left)/2;
             
-            if(v[mid] < x)
-            {
-                left=mid+1;
-            }
-            else
-            {
-                if(mid==0 || v[mid-1] < x)
-                {
-                    ans=mid;
-                }
-                right=mid-1;
-            }
-        }
+        //     if(v[mid] < x)
+        //     {
+        //         left=mid+1;
+        //     }
+        //     else
+        //     {
+        //         if(mid==0 || v[mid-1] < x)
+        //         {
+        //             ans=mid;
+        //         }
+        //         right=mid-1;
+        //     }
+        // }
         
-    //   int l=0,h=v.size()-1;
-    //   int ans=-1;
-    //   while(l<=h){
-    //       int mid=l+(h-l)/2;
-    //       if(v[mid]==x){
-    //           ans=mid;
-    //       }else if(v[mid]<x){
-    //           l=mid+1;
-    //       }else
+      int l=0,h=v.size()-1;
+      int ans=-1;
+      while(l<=h){
+          int mid=l+(h-l)/2;
+          if(v[mid]==x){
+              ans=mid;
+            //  l=mid+1;
+            h=mid-1;  
+          }else if(v[mid]<x){
+              l=mid+1;
+          }else
           
-    //       h=mid-1;
+          h=mid-1;
          // else
-         // l=mid+1;
+       //   l=mid+1;
          
          
-    //   }
+      }
       int fs=ans;
      // cout<<fs<<endl;
     //  l=0,h=v.size()-1;

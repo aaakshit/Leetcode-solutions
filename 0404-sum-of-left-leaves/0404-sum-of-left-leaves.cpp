@@ -12,19 +12,23 @@
 class Solution {
 public:
     int sum=0;
-    void pre(TreeNode* root,bool flag){
-        if(!root)return;
-        if(flag && !root->left && !root->right)
-            sum+=root->val;
-        pre(root->left,1);
-        pre(root->right,0);
-    
+    int solve(TreeNode *root){
+        if(root){
+            if(root->left){
+                if(!root->left->left && !root->left->right){
+                    sum+=root->left->val;
+                }
+                solve(root->left);
+            }
+            if(root->right){
+                solve(root->right);
+            }
+        }
+        return 0;
     }
     int sumOfLeftLeaves(TreeNode* root) {
-        if(!root)return 0;
-        if(!root->left && !root->right)
-            return 0;
-        pre(root,1);
+        solve(root);
         return sum;
+        
     }
 };

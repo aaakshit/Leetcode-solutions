@@ -4,9 +4,6 @@ public:
     {
         if(root==NULL) return 0;
 
-        // we are using max function over here because as we know node can be negative , and we also know that when we take negatuve nodes
-        // then they will reduce our path cost but we need to maximize it as much as possible
-        // so whenever we got negative node then just take 0 instead of negative value
         int l = max(0,subTreesum(root->left,mx));
         int r = max(0,subTreesum(root->right,mx));
 

@@ -15,15 +15,18 @@ public:
     void solve(TreeNode* root){
         if(root){
             if(root->val%2==0){
-                if(root->left&&root->left->left)
-                    sum+=root->left->left->val;
-                if(root->right&&root->right->right)
-                    sum+=root->right->right->val;
-                if(root->left&&root->left->right)
-                    sum+=root->left->right->val;
-                if(root->right&&root->right->left)
-                    sum+=root->right->left->val;
-             // return;
+            if(root->left && root->left->left){
+                sum+=root->left->left->val;
+            }
+            if(root->left && root->left->right){
+                sum+=root->left->right->val;
+            }
+            if(root->right && root->right->left){
+                sum+=root->right->left->val;
+            }
+            if(root->right && root->right->right){
+                sum+=root->right->right->val;
+            }
             }
             solve(root->left);
             solve(root->right);

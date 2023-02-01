@@ -1,41 +1,31 @@
 class Solution {
 public:
-	vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {
-		vector<vector<int>>v(mat.size(), vector<int>(mat[0].size(), 0));
-		vector<vector<int>>ans(mat.size(), vector<int>(mat[0].size(), 0));
-		queue<pair<pair<int, int>, int>>q;
-		for(int i=0; i<mat.size(); i++){
-			for(int j=0; j<mat[0].size(); j++){
-				if(!v[i][j] && !mat[i][j]){
-					v[i][j]=1;
-					q.push({{i, j}, 0});
-				}
-			}
-		}
-		while(!q.empty()){
-			int x=q.front().first.first, y=q.front().first.second, cnt=q.front().second;
-			q.pop();
-			if(x>0 && !v[x-1][y] && mat[x-1][y]==1){
-				v[x-1][y]=1;
-				q.push({{x-1, y}, cnt+1});
-				ans[x-1][y]=cnt+1;
-			}
-			if(y>0 && !v[x][y-1] && mat[x][y-1]==1){
-				v[x][y-1]=1;
-				q.push({{x, y-1}, cnt+1});
-				ans[x][y-1]=cnt+1;
-			}
-			if(x<mat.size()-1 && !v[x+1][y] && mat[x+1][y]==1){
-				v[x+1][y]=1;
-				q.push({{x+1, y}, cnt+1});
-				ans[x+1][y]=cnt+1;
-			}
-			if(y<mat[0].size()-1 && !v[x][y+1] && mat[x][y+1]==1){
-				v[x][y+1]=1;
-				q.push({{x, y+1}, cnt+1});
-				ans[x][y+1]=cnt+1;
-			}
-		}
-		return ans;
-	}
+    vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {
+        int n=mat.size();
+        int m=mat[0].size();
+        vector<vector<int>>ans(n,vector<int>(m,-1));
+        queue<pair<int,int>>q;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(mat[i][j]==0){
+                    q.push({i,j});
+                    ans[i][j]=0;
+                }
+            }
+        }
+        int dx[]={1,-1,0,0};
+        int dy[]={0,0,1,-1};
+        while(!q.empty()){
+            int x=q.front().first,y=q.front().second;
+            q.pop();
+            for(int i=0;i<4;i++){
+                int a=x+dx[i],b=y+dy[i];
+                if(a>=0 && b>=0 && a<n && b<m && ans[a][b]==-1){
+                    ans[a][b]=ans[x][y]+1;
+                    q.push({a,b});
+                }
+            }
+        }
+        return ans;
+    }
 };

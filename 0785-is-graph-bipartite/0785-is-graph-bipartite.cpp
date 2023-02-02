@@ -1,32 +1,33 @@
 class Solution {
-private:
-    bool isSameColored(int node,int color,vector<int> &vis,vector<vector<int>> &graph){
-        vis[node]=color;
-        //neighbours
-        for(auto  it:graph[node]){
-            if(vis[it]==0){
-                if(isSameColored(it,-color,vis,graph)==true)
-                    return true;
+public:
+    bool solve(vector<vector<int>>& adj,vector<int>&vis,int c,int i){
+         vis[i]=c;
+        for(auto x:adj[i]){
+            if(!vis[x]){
+            if(solve(adj,vis,-c,x))
+                return 1;
             }
-            else if(vis[it]==color)
-                return true;
+            else if(vis[x]==c)
+                return 1;
         }
         return false;
     }
-public:
     bool isBipartite(vector<vector<int>>& graph) {
-        //graph is the adj list
         int n=graph.size();
-        vector<int> vis(n,0);
-        //multisource as per point 4 in the graph properties
+        int m=graph[0].size();
+       // vector<int>adj[n];
+        vector<int>vis(n,0);
+        // for(int i=0;i<n;i++){
+        //     for(int j=0;j<m;j++){
+        //         adj[graph[i][j]].push_back(graph[j][i]);
+        //         adj[graph[j][i]].push_back(graph[i][j]);
+        //     }
+        // }
         for(int i=0;i<n;i++){
-            if(vis[i]==0){
-                if(isSameColored(i,1,vis,graph)==true)
-                    return false;
-            }  
+            if(!vis[i])
+            if(solve(graph,vis,1,i))
+                return false;
         }
-        return  true;
-        
-        
+        return true;
     }
 };

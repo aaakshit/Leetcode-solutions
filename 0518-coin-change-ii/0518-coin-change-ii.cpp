@@ -1,16 +1,23 @@
 class Solution {
 public:
-    int calc(int amount, vector<int>& coins,int i,vector<vector<int>>&dp){
-        if(i<0||amount<0)
-            return 0;
-        if(amount==0)
-            return 1;
-        if(dp[i][amount]!=-1)
-            return dp[i][amount];
-       return dp[i][amount]=calc(amount-coins[i],coins,i,dp)+calc(amount,coins,i-1,dp);
+    vector<vector<int>>dp;
+    int solve(int i,int sum,int amount,vector<int>&coins){
+        if(i>=coins.size()||sum>=amount){
+            if(sum==amount)
+                return 1;
+            else
+                return 0;
+        }
+        if(dp[i][sum]!=-1)
+            return dp[i][sum];
+        if(coins[i]<=amount)
+        return dp[i][sum]=solve(i,sum+coins[i],amount,coins)+solve(i+1,sum,amount,coins);
+        else
+            return dp[i][sum]=solve(i+1,sum,amount,coins);
     }
     int change(int amount, vector<int>& coins) {
-        vector<vector<int>>dp(301,vector<int>(5001,-1));
-        return calc(amount,coins,coins.size()-1,dp);
+        dp.resize(305,vector<int>(5005,-1));
+        int ans=solve(0,0,amount,coins);
+        return ans;
     }
 };

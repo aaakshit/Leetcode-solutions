@@ -1,32 +1,31 @@
 class Solution {
- public:
-  int shipWithinDays(vector<int>& weights, int days) {
-    int l = *max_element(begin(weights), end(weights));
-    int r = accumulate(begin(weights), end(weights), 0);
-
-    while (l < r) {
-      const int m = (l + r) / 2;
-      if (shipDays(weights, m) <= days)
-        r = m;
-      else
-        l = m + 1;
+public:
+    int check(int mid,vector<int>&w){
+        int c=1,sum=0;
+        for(int i=0;i<w.size();i++){
+            if(sum+w[i]>mid){
+                c++;
+                sum=w[i];
+            }
+            else{
+                sum+=w[i];
+            }
+        }
+        return c;
     }
-
-    return l;
-  }
-
- private:
-  int shipDays(const vector<int>& weights, int shipCapacity) {
-    int days = 1;
-    int capacity = 0;
-    for (const int weight : weights) {
-      if (capacity + weight > shipCapacity) {
-        ++days;
-        capacity = weight;
-      } else {
-        capacity += weight;
-      }
+    int shipWithinDays(vector<int>& w, int d) {
+        int l=*max_element(w.begin(),w.end());
+        int h=accumulate(w.begin(),w.end(),0);
+        int ans=0;
+        while(l<h){
+            int mid=l+(h-l)/2;
+            if(check(mid,w)<=d){
+                ans=mid;
+                h=mid;
+            }
+            else
+                l=mid+1;
+        }
+        return l;
     }
-    return days;
-  }
 };

@@ -1,31 +1,6 @@
 class Solution {
 public:
-    int cnt(int k,vector<int>& piles){
-        // float t=(float)m;
-        // int c=0;
-        // for(int i=0;i<piles.size();i++){
-        //     if(piles[i]<m)
-        //         c++;
-        //     c+=ceil(piles[i]/m);
-        // }
-        // return c;
-        int hour=0;
-        for(int i=0;i<piles.size();i++)
-        {
-            if(piles[i] % k == 0)
-            {
-                hour+=piles[i]/k;
-            }
-            else
-            {
-                hour+=piles[i]/k;
-                hour+=1;
-            }
-        }
-        
-        return hour;
-    }
-    bool cnt1(int mid ,vector<int>& piles,int h){
+   bool cnt1(int mid ,vector<int>& piles,int h){
         long currHr=0;
         for(auto bana:piles){
             int spd=bana/mid;

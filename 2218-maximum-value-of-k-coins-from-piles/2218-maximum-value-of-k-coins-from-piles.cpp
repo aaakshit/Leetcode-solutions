@@ -1,24 +1,30 @@
 class Solution {
 public:
-    vector<vector<int>>dp;
-    int solve(int i,vector<vector<int>>&piles,int k){
-        if(i>=piles.size())
-            return 0;
-        int mx=0,sum=0;
-        if(dp[i][k]!=-1)
-            return dp[i][k];
-        mx=max(mx,solve(i+1,piles,k));
-        for(int j=0;j<piles[i].size();j++){
-            sum+=piles[i][j];
-            if(k-(j+1)>=0){
-                mx=max(mx,sum+solve(i+1,piles,k-(j+1)));
+    int dp[1001][2001];
+
+    int maxValueOfCoins(vector<vector<int>>& piles, int k) {
+        int n = piles.size();
+        memset(dp, -1, sizeof(dp));
+        for(auto &pile : piles){
+            for(int i=1;i<pile.size();i++){
+                pile[i] += pile[i-1];
             }
         }
-        return dp[i][k]=mx;
+        return helper(piles, k, n, 0);
     }
-    int maxValueOfCoins(vector<vector<int>>& piles, int k) {
-        dp.resize(piles.size()+1,vector<int>(k+1,-1));
-        return solve(0,piles,k);
-        // return 0;
+
+    int helper(vector<vector<int>>& prefixSum, int k, int &n, int idx){
+        if( k <= 0 || idx >= n ){
+            return 0;
+        }
+        if( dp[idx][k] != -1 ) return dp[idx][k];
+
+        int maxValue = helper(prefixSum, k, n, idx+1);
+        int limit = (k <= prefixSum[idx].size())?  k : prefixSum[idx].size();
+
+        for(int i=0; i<limit; i++){
+            maxValue = max(maxValue, (prefixSum[idx][i] + helper(prefixSum, (k-i-1), n, idx+1)));
+        }
+        return dp[idx][k] = maxValue;
     }
 };

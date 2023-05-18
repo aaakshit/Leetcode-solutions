@@ -1,13 +1,20 @@
 class Solution {
 public:
-    vector<int> findSmallestSetOfVertices(int n, vector<vector<int>>& edges) {
-        unordered_map<int,list<int>> adj;
-        vector<int> temp(n,0),ans;
-        for(auto i:edges){
-            adj[i[0]].push_back(i[1]);
-            temp[i[1]]++;
+    std::vector<int> findSmallestSetOfVertices(int n, std::vector<std::vector<int>>& edges) {
+        std::unordered_set<int> destinations;
+        
+        for (const std::vector<int>& edge : edges) {
+            destinations.insert(edge[1]);
         }
-        for(int i=0;i<n;i++) if(temp[i]==0) ans.push_back(i);
-        return ans;
+        
+        std::vector<int> result;
+        
+        for (int i = 0; i < n; i++) {
+            if (destinations.find(i) == destinations.end()) {
+                result.push_back(i);
+            }
+        }
+        
+        return result;
     }
 };

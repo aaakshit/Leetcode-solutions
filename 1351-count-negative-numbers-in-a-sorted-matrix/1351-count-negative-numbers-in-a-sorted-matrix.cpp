@@ -1,13 +1,16 @@
 class Solution {
 public:
-   int countNegatives(vector<vector<int>>& grid) {
-		int m=grid.size(), n=grid[0].size(), r=0, c=n- 1;
-		int ans=0;
-		while(r < m){
-			while(c >= 0 && grid[r][c] < 0){c--;}
-			ans+=n-c-1;
-			r++;
-		}
-		return ans;
-	}
+    int countNegatives(vector<vector<int>>& grid) {
+
+        int n = grid.size();
+        int ans = 0;
+
+        for(int i=0;i<n;i++){
+            int ub = upper_bound(grid[i].rbegin(),grid[i].rend(),-1) - grid[i].rbegin();
+
+            ans += ub;
+        }
+        
+        return ans;
+    }
 };

@@ -1,18 +1,17 @@
 class Solution {
 public:
-   char nextGreatestLetter(vector<char>& letters, char target) {
-        int start=0, n = letters.size(), end = n-1;
-        while(start<=end)
-        {
-           int mid=start+(end-start)/2;
-            if(target<letters[mid])
-            {end=mid-1;
+    char nextGreatestLetter(vector<char>& letters, char target) {
+        int l=0,h=letters.size()-1;
+        int ans=-1;
+        while(l<=h){
+            int mid=l+(h-l)/2;
+            if(letters[mid]>target){
+                ans=mid;
+                h=mid-1;
             }
             else
-            {
-                start=mid+1;  
-            }
+                l=mid+1;
         }
-        return letters[start%n];
+        return ans==-1?letters[0]:letters[ans];
     }
 };

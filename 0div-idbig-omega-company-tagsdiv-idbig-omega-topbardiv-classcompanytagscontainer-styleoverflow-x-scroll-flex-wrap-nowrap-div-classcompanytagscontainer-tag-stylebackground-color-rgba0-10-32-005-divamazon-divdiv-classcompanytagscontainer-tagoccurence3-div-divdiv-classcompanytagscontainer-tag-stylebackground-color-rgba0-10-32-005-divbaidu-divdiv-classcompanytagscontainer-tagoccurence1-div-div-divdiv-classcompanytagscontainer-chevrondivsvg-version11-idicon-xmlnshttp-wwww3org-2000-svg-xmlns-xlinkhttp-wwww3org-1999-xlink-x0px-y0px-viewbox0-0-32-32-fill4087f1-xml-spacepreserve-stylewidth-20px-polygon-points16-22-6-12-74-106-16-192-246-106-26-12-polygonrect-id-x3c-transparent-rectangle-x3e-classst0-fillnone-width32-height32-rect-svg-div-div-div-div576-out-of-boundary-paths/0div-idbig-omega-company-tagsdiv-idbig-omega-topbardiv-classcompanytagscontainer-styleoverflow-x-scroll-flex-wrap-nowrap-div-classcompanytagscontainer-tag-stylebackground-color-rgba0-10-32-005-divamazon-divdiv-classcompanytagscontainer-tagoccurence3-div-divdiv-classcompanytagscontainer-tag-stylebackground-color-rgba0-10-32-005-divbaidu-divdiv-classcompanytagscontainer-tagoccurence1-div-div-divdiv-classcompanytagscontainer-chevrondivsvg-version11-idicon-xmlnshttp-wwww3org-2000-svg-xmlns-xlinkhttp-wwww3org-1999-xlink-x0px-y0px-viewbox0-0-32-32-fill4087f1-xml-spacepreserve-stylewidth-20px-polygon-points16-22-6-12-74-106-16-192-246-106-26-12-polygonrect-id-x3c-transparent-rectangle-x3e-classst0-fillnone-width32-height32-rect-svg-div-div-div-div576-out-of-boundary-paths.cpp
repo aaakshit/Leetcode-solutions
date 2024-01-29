@@ -17,8 +17,8 @@ public:
         ans=(ans+solve(i,j+1,m,n,mm-1))%mod;
         ans=(ans+solve(i-1,j,m,n,mm-1))%mod;
         ans=(ans+solve(i,j-1,m,n,mm-1))%mod;
-        dp[i][j][mm]=ans%mod;
-        return ans;
+        return dp[i][j][mm]=ans%mod;
+        
         
     }
     int findPaths(int m, int n, int mm, int i, int j) {
